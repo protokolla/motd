@@ -1,0 +1,21 @@
+#!/bin/bash
+# Written by Roy (March 2023)
+
+red="\e[1;31m"
+undim="\e[0m"
+
+status=$(curl -s https://status.protokolla.fi/api/messages | jq -r '"  - " + .[].description')
+if [[ ! -z "$status" ]]; then
+   echo
+   echo "Service status messages:"
+   echo
+   echo "$status" 
+fi
+
+services=$(curl -s https://status.protokolla.fi/api/services | jq -r '.[] | select(.online == false) | "  - " + .name'
+)
+if [[ ! -z "$services" ]]; then
+   echo
+   printf "There are services$red DOWN!!!!$undim\n\n"
+   echo "$services"
+fi
