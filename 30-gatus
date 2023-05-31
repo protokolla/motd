@@ -1,5 +1,5 @@
 #!/bin/bash
-# Written by Roy (March 2023)
+# Written by Roy (June 2023)
 
 red="\e[1;31m"
 undim="\e[0m"
