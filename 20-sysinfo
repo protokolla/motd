@@ -20,7 +20,8 @@ PROCESSOR_NAME=`echo "$LSCPU_DATA"|jq -r '.[][]|select(.field=="Model name:")|.d
 PROCESSOR_COUNT=`echo "$LSCPU_DATA"|jq -r '.[][]|select(.field=="CPU(s):")|.data'`
 PROCESSOR_ARCH=`echo "$LSCPU_DATA"|jq -r '.[][]|select(.field=="Architecture:")|.data'`
 # get network stuff
-NETWORK_ROUTE=$(route | grep '^default' | grep -o '[^ ]*$' | head -n 1)
+# in some situations /sbin might not be in $PATH
+NETWORK_ROUTE=$(/sbin/route | grep '^default' | grep -o '[^ ]*$' | head -n 1)
 NETWORK_DATA=$(vnstat -i $NETWORK_ROUTE --json)
 NETWORK_TRAFFIC_IN=$(echo "$NETWORK_DATA"|jq '.interfaces[].traffic.total.rx'|numfmt --to=iec-i)
 NETWORK_TRAFFIC_OUT=$(echo "$NETWORK_DATA"|jq '.interfaces[].traffic.total.tx'|numfmt --to=iec-i)
