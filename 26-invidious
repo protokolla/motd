@@ -1,6 +1,6 @@
 #!/bin/bash
 # Made by Roy Takanen - March 2023
-INVIDIOUS_METRICS=$(curl -L -s --insecure http://invidious.protokolla.fi/api/v1/stats)
+INVIDIOUS_METRICS=$(curl -L -s https://invidious.protokolla.fi/api/v1/stats)
 TOTAL=$(echo $INVIDIOUS_METRICS | jq '.usage.users.total')
 
 # Reset
